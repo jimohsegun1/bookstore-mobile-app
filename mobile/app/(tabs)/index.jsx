@@ -139,7 +139,8 @@ const Home = () => {
                 onEndReachedThreshold={0.5}
                 ListHeaderComponent={
                     <View style={styles.header}>
-                        <Text style={styles.headerTitle}>BookWorm 🐛</Text>
+                        <Text style={styles.headerTitle}>BookStore 📚
+                        </Text>
                         <Text style={styles.headerSubtitle}>
                             Discover new reads from our community 🌼
                         </Text>
