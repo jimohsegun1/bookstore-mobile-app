@@ -52,6 +52,7 @@ export const register = async (req, res) => {
                 username: user.username,
                 email: user.email,
                 profileImage: user.profileImage,
+                createdAt: user.createdAt,
             },
         });
     } catch (error) {
@@ -68,29 +69,29 @@ export const login = async (req, res) => {
             return res.status(400).json({ message: "All fields are required" });
         }
 
-		const user = await User.findOne({ email });
-		if(!user) {
-			return res.status(400).json({ message: "Invalid credentials" });
-		}
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: "Invalid credentials" });
+        }
 
-		const isPasswordCorrect = await user.comparePassword(password);
-		if(!isPasswordCorrect) {
-			return res.status(400).json({ message: "Invalid credentials" });
-		}
+        const isPasswordCorrect = await user.comparePassword(password);
+        if (!isPasswordCorrect) {
+            return res.status(400).json({ message: "Invalid credentials" });
+        }
 
-		// generate token
-		const token = generateToken(user._id);
+        // generate token
+        const token = generateToken(user._id);
 
-		res.status(200).json({
-			token,
-			user: {
-				id: user._id,
-				username: user.username,
-				email: user.email,
-				profileImage: user.profileImage,
-			},
-		});
-
+        res.status(200).json({
+            token,
+            user: {
+                id: user._id,
+                username: user.username,
+                email: user.email,
+                profileImage: user.profileImage,
+                createdAt: user.createdAt,
+            },
+        });
     } catch (error) {
         console.log("Error in login controller", error.message);
         res.status(500).json({ message: error.message });

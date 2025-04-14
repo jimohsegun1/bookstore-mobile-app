@@ -95,7 +95,8 @@ export const recommendedBooks = async (req, res) => {
     try {
         const userId = req.user._id;
 
-        const books = await Book.find({ user: { $ne: userId } })
+        // my recommended book
+        const books = await Book.find({ user: userId })
             .sort({ createdAt: -1 })
             .limit(5)
             .populate("user", "username profileImage")
