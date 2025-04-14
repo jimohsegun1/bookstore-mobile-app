@@ -1,5 +1,5 @@
-import cloudinary from "../lib/cloudinary.js";
 import Book from "../models/book.model.js";
+import cloudinary from "../lib/cloudinary.js";
 
 export const getAllBooks = async (req, res) => {
     try {
@@ -33,25 +33,19 @@ export const getAllBooks = async (req, res) => {
 export const createBook = async (req, res) => {
     try {
         const { title, caption, rating, image } = req.body;
-        console.log("req.body", req.body);
 
         if (!title || !caption || !rating || !image) {
             return res.status(400).json({ message: "All fields are required" });
         }
 
-        let cloudinaryResponse = null;
-
-        if (image) {
-            cloudinaryResponse = await cloudinary.uploader.upload(image, {
-                folder: "book",
-            });
-        }
+        const uploadResponse = await cloudinary.uploader.upload(image);
+        const imageUrl = uploadResponse.secure_url;
 
         const newBook = await Book.create({
             title,
             caption,
             rating,
-            image: cloudinaryResponse?.secure_url || "",
+            image: imageUrl,
             user: req.user._id,
         });
 
@@ -59,7 +53,7 @@ export const createBook = async (req, res) => {
 
         res.status(201).json(newBook);
     } catch (error) {
-        console.log("Error in createBook controller", error.message);
+        console.log("Error in createBook controller", error);
         res.status(500).json({ message: error.message });
     }
 };
@@ -112,4 +106,4 @@ export const recommendedBooks = async (req, res) => {
         console.log("Error in recommendedBooks controller", error.message);
         res.status(500).json({ message: error.message });
     }
-}
+};

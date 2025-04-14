@@ -6,6 +6,7 @@ import {
     ActivityIndicator,
     KeyboardAvoidingView,
     Platform,
+    Alert,
 } from "react-native";
 import styles from "../../assets/styles/login.styles";
 import { useState } from "react";
@@ -13,17 +14,25 @@ import { Image } from "expo-image";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import COLORS from "../../constants/colors";
 import { Link } from "expo-router";
+import { useRouter } from "expo-router";
+import { useAuthStore } from "../../store/authStore";
 
 const Login = () => {
+    const router = useRouter();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
 
-    const handlelogin = () => {
-        setIsLoading(true);
-        console.log("Login button clicked");
-        // Add your login logic here
+    const { user, isLoading, login } = useAuthStore();
+
+    const handlelogin = async () => {
+        const result = await login({ email, password });
+        if (result.success) {
+            router.push("/(tabs)");
+        } else {
+            Alert.alert("Error", result.error || "An error occurred during login.");
+        }
     };
 
     return (

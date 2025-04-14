@@ -6,12 +6,14 @@ import {
     TextInput,
     TouchableOpacity,
     ActivityIndicator,
+    Alert,
 } from "react-native";
 import styles from "../../assets/styles/signup.styles";
 import { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import COLORS from "../../constants/colors";
 import { useRouter } from "expo-router";
+import { useAuthStore } from "../../store/authStore";
 
 const Signup = () => {
     const router = useRouter();
@@ -19,12 +21,16 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
 
-    const handleSignUp = () => {
-        setIsLoading(true);
-        console.log("Login button clicked");
-        // Add your login logic here
+    const { isLoading, register } = useAuthStore();
+
+    const handleSignUp = async () => {
+        const result = await register({ username, email, password });
+        if (result.success) {
+            router.push("/(auth)");
+        } else {
+            Alert.alert("Error", result.error || "An error occurred during registration.");
+        }
     };
     return (
         <KeyboardAvoidingView
