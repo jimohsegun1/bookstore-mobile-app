@@ -41,7 +41,7 @@ const Signup = () => {
                 <View style={styles.card}>
                     {/* HEADER */}
                     <View style={styles.header}>
-                        <Text style={styles.title}>BookWorm</Text>
+                        <Text style={styles.title}>BookStore</Text>
                         <Text style={styles.subtitle}>Share your favorite reads</Text>
                     </View>
 
