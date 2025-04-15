@@ -1,0 +1,56 @@
+notes
+
+cmd k : to clear terminal
+create two folders in project : 'backend' and 'mobile'
+
+STARTUP (in terminal) : 
+cd backend
+npm init -y //creates package.json
+npm i express mongoose dotenv jsonwebtoken cloudinary bcryptjs cors //install dependencies
+npm i nodemon -D //install nodemon to use in DEVELOPMENT ONLY
+
+@backend
+create file index.js
+add type:module and dev script to package.json :
+
+"author": "",
+  "type": "module",
+
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+
+setup server in index.js
+npm run dev
+
+create random string for password use (in terminal) : openssl rand -base64 32
+
+@mobile folder in terminal to setup app : 
+cd ./mobile
+npx create-expo-app@latest .
+
+then delete unwanted files:
+npm run reset-project (then 'n')
+
+to run app with expo @iphone: npx expo start (or npm start)
+
+change app > _layout.tsx & index.tsx to .jsx filetype
+
+install expo-image to use @mobile: npx expo install expo-image
+
+image sources : unsplash, storyset
+font source: jetbrains.com/lp/mono/
+
+mobile frontend data handling : 
+use Zustand for global state management : npm i Zustand
+install async storage from react : npm i @react-native-async-storage/async-storage
+
+backend API launched with Render.com from github repo
+
+use cron to send request every 14 mintues to keep API active : npm install cron
+
+rnf = snippet to create react native functional component
+
+install expo image picker : npx expo install expo-image-picker
+
+install expo file system : npx expo install expo-file-system
