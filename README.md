@@ -1,7 +1,5 @@
 # Bookstore - A Book Recommendation React Native App
 
-If you are viewing it on web, open it in inspect.
-
 Bookstore is a React Native mobile application where users can log in, sign up, and share their book recommendations. Built with React Native and Expo, it provides a smooth user experience for discovering and sharing books. The app is powered by a Node.js, Express, MongoDB, and Mongoose backend, hosted on Render.
 
 ## Key Features
